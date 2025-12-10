@@ -17,6 +17,11 @@ ENV MAP=de_dust2
 ENV MAXPLAYERS=16
 ENV SV_LAN=0
 
+# Configure update repos to archive (Debian Buster is EOL)
+RUN sed -i 's|http://deb.debian.org|http://archive.debian.org|g' /etc/apt/sources.list && \
+    sed -i 's|http://security.debian.org|http://archive.debian.org|g' /etc/apt/sources.list && \
+    sed -i '/buster-updates/d' /etc/apt/sources.list
+    
 # install dependencies
 RUN dpkg --add-architecture i386 && \
     apt-get update && \
